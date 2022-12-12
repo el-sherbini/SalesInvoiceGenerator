@@ -4,16 +4,20 @@
  */
 package com.view;
 
+import com.controller.ActionHandler;
+import com.model.InvHeader;
+import java.util.ArrayList;
+
 /**
  *
- * @author Moham
+ * @author Mohamed Emad
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainView extends javax.swing.JFrame {
 
     /**
      * Creates new form Frame
      */
-    public MainFrame() {
+    public MainView() {
         initComponents();
     }
 
@@ -37,15 +41,21 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         InvoiceItemsTbl = new javax.swing.JTable();
         createNewInvoiceBtn = new javax.swing.JButton();
+        createNewInvoiceBtn.addActionListener(controller);
         deleteInvoiceBtn = new javax.swing.JButton();
+        deleteInvoiceBtn.addActionListener(controller);
         saveBtn = new javax.swing.JButton();
+        saveBtn.addActionListener(controller);
         cancelBtn = new javax.swing.JButton();
+        cancelBtn.addActionListener(controller);
         customerNameTxtField = new javax.swing.JTextField();
         invoiceDateTxtField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        loadFileMenItem = new javax.swing.JMenuItem();
-        SaveFileMenItem = new javax.swing.JMenuItem();
+        loadFileMenuBtn = new javax.swing.JMenuItem();
+        loadFileMenuBtn.addActionListener(controller);
+        saveFileMenuBtn = new javax.swing.JMenuItem();
+        saveFileMenuBtn.addActionListener(controller);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,20 +94,26 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(InvoiceItemsTbl);
 
         createNewInvoiceBtn.setText("Create New Invoice");
+        createNewInvoiceBtn.setActionCommand("createNewInvoice");
 
         deleteInvoiceBtn.setText("Delete Invoice");
+        deleteInvoiceBtn.setActionCommand("deleteInvoice");
 
         saveBtn.setText("Save");
+        saveBtn.setActionCommand("save");
 
         cancelBtn.setText("Cancel");
+        cancelBtn.setActionCommand("cancel");
 
         jMenu1.setText("File");
 
-        loadFileMenItem.setText("Load File");
-        jMenu1.add(loadFileMenItem);
+        loadFileMenuBtn.setText("Load File");
+        loadFileMenuBtn.setActionCommand("loadFile");
+        jMenu1.add(loadFileMenuBtn);
 
-        SaveFileMenItem.setText("Save File");
-        jMenu1.add(SaveFileMenItem);
+        saveFileMenuBtn.setText("Save File");
+        saveFileMenuBtn.setActionCommand("saveFile");
+        jMenu1.add(saveFileMenuBtn);
 
         jMenuBar1.add(jMenu1);
 
@@ -203,21 +219,23 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                new MainView().setVisible(true);
             }
         });
     }
@@ -227,7 +245,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel InvoiceDateLbl;
     private javax.swing.JTable InvoiceItemsTbl;
     private javax.swing.JLabel InvoiceTotalLbl;
-    private javax.swing.JMenuItem SaveFileMenItem;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JButton createNewInvoiceBtn;
     private javax.swing.JTextField customerNameTxtField;
@@ -241,7 +258,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JMenuItem loadFileMenItem;
+    private javax.swing.JMenuItem loadFileMenuBtn;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JMenuItem saveFileMenuBtn;
     // End of variables declaration//GEN-END:variables
+
+    private ArrayList<InvHeader> invoices;
+    private ActionHandler controller = new ActionHandler(this);
+
+    public ArrayList<InvHeader> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(ArrayList<InvHeader> invoices) {
+        this.invoices = invoices;
+    }
+
 }

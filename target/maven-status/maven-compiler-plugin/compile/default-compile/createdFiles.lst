@@ -1,2 +1,5 @@
-com\view\MainFrame.class
-com\view\MainFrame$1.class
+com\model\InvHeader.class
+com\model\InvLine.class
+com\view\MainView$1.class
+com\controller\ActionHandler.class
+com\view\MainView.class
