@@ -6,7 +6,11 @@ package com.view;
 
 import com.controller.ActionHandler;
 import com.model.InvHeader;
+import com.model.InvTable;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -32,12 +36,13 @@ public class MainView extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         invoicesTbl = new javax.swing.JTable();
-        invoiceNumLbl = new javax.swing.JLabel();
+        invoicesTbl.getSelectionModel().addListSelectionListener(controller);
+        invoiceNumLblName = new javax.swing.JLabel();
         InvoiceDateLbl = new javax.swing.JLabel();
         CustomerNameLbl = new javax.swing.JLabel();
+        InvoiceTotalLblName = new javax.swing.JLabel();
+        invoiceNumLbl = new javax.swing.JLabel();
         InvoiceTotalLbl = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         InvoiceItemsTbl = new javax.swing.JTable();
         createNewInvoiceBtn = new javax.swing.JButton();
@@ -61,34 +66,28 @@ public class MainView extends javax.swing.JFrame {
 
         invoicesTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(invoicesTbl);
 
-        invoiceNumLbl.setText("Invoice Number");
+        invoiceNumLblName.setText("Invoice Number");
 
         InvoiceDateLbl.setText("Invoice Date");
 
         CustomerNameLbl.setText("Customer Name");
 
-        InvoiceTotalLbl.setText("Invoice Total");
+        InvoiceTotalLblName.setText("Invoice Total");
 
         InvoiceItemsTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane2.setViewportView(InvoiceItemsTbl);
@@ -136,67 +135,72 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CustomerNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(InvoiceTotalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(invoiceNumLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(InvoiceDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(customerNameTxtField)
-                                    .addComponent(invoiceDateTxtField))
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
                         .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(96, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(CustomerNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(customerNameTxtField)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(InvoiceTotalLblName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(invoiceNumLblName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(invoiceNumLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(InvoiceTotalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(InvoiceDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(invoiceDateTxtField)))
+                        .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(invoiceNumLbl)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
+                            .addComponent(invoiceNumLblName)
+                            .addComponent(invoiceNumLbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(InvoiceDateLbl)
                             .addComponent(invoiceDateTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(CustomerNameLbl)
                             .addComponent(customerNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InvoiceTotalLbl)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(saveBtn)
-                            .addComponent(cancelBtn)))
+                            .addComponent(InvoiceTotalLblName)
+                            .addComponent(InvoiceTotalLbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(createNewInvoiceBtn)
-                            .addComponent(deleteInvoiceBtn))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(deleteInvoiceBtn)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(saveBtn)
+                            .addComponent(cancelBtn))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -245,15 +249,15 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel InvoiceDateLbl;
     private javax.swing.JTable InvoiceItemsTbl;
     private javax.swing.JLabel InvoiceTotalLbl;
+    private javax.swing.JLabel InvoiceTotalLblName;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JButton createNewInvoiceBtn;
     private javax.swing.JTextField customerNameTxtField;
     private javax.swing.JButton deleteInvoiceBtn;
     private javax.swing.JTextField invoiceDateTxtField;
     private javax.swing.JLabel invoiceNumLbl;
+    private javax.swing.JLabel invoiceNumLblName;
     private javax.swing.JTable invoicesTbl;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -265,6 +269,15 @@ public class MainView extends javax.swing.JFrame {
 
     private ArrayList<InvHeader> invoices;
     private ActionHandler controller = new ActionHandler(this);
+    private InvTable invTable;
+
+    public InvTable getInvTable() {
+        return invTable;
+    }
+
+    public void setInvTable(InvTable invTable) {
+        this.invTable = invTable;
+    }
 
     public ArrayList<InvHeader> getInvoices() {
         return invoices;
@@ -272,6 +285,34 @@ public class MainView extends javax.swing.JFrame {
 
     public void setInvoices(ArrayList<InvHeader> invoices) {
         this.invoices = invoices;
+    }
+
+    public JTable getInvoiceItemsTbl() {
+        return InvoiceItemsTbl;
+    }
+
+    public JLabel getInvoiceTotalLbl() {
+        return InvoiceTotalLbl;
+    }
+
+    public JLabel getInvoiceNumLbl() {
+        return invoiceNumLbl;
+    }
+
+    public JTable getInvoicesTbl() {
+        return invoicesTbl;
+    }
+
+    public ActionHandler getController() {
+        return controller;
+    }
+
+    public JTextField getCustomerNameTxtField() {
+        return customerNameTxtField;
+    }
+
+    public JTextField getInvoiceDateTxtField() {
+        return invoiceDateTxtField;
     }
 
 }

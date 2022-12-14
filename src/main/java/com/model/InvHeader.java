@@ -46,11 +46,6 @@ public class InvHeader {
         this.customerName = customerName;
     }    
 
-    @Override
-    public String toString() {
-        return "InvoiceHeader{" + "invoiceNumber=" + invNumber + ", invoiceDate=" + invDate + ", customerName=" + customerName + '}';
-    }
-
     public ArrayList<InvLine> getLines() {
         if (lines == null) {
             lines = new ArrayList<>();
@@ -58,5 +53,14 @@ public class InvHeader {
         return lines;
     }
     
+    public double getTotal() {
+        double t = 0.0;
+        
+        for (InvLine l: getLines()) {
+            t += l.getTotal();
+        }
+        
+        return t;
+    }
     
 }

@@ -6,6 +6,8 @@ package com.controller;
 
 import com.model.InvHeader;
 import com.model.InvLine;
+import com.model.InvTable;
+import com.model.LinesTable;
 import com.view.MainView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,17 +19,32 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author Mohamed Emad
  */
-public class ActionHandler implements ActionListener {
-    
+public class ActionHandler implements ActionListener, ListSelectionListener {
     private MainView mainView;
     
     public ActionHandler(MainView mainView){
         this.mainView = mainView;
+    }
+    
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        int selectedIndex = mainView.getInvoicesTbl().getSelectedRow();
+        InvHeader currentInv = mainView.getInvoices().get(selectedIndex);
+        mainView.getInvoiceNumLbl().setText(""+currentInv.getInvNumber());
+        mainView.getInvoiceDateTxtField().setText(currentInv.getInvDate());
+        mainView.getCustomerNameTxtField().setText(currentInv.getCustomerName());
+        mainView.getInvoiceTotalLbl().setText(""+currentInv.getTotal());
+        
+        LinesTable linesTable = new LinesTable(currentInv.getLines());
+        mainView.getInvoiceItemsTbl().setModel(linesTable);
+        linesTable.fireTableDataChanged();
     }
 
     @Override
@@ -90,12 +107,16 @@ public class ActionHandler implements ActionListener {
                             }
                         }
                         
-                        InvLine newLine = new InvLine(invNumber, item, price, count, invoice);
+                        InvLine newLine = new InvLine(item, price, count, invoice);
                         invoice.getLines().add(newLine);
                 }
             }
             
             mainView.setInvoices(invoices);
+            InvTable invTable = new InvTable(invoices);
+            mainView.setInvTable(invTable);
+            mainView.getInvoicesTbl().setModel(invTable);
+            mainView.getInvTable().fireTableDataChanged();
         }
         } catch (IOException ex){
             ex.printStackTrace();
@@ -116,6 +137,6 @@ public class ActionHandler implements ActionListener {
 
     private void deleteItemAction() {
     } 
-    
+
     
 }

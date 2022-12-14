@@ -9,29 +9,20 @@ package com.model;
  * @author Mohamed Emad
  */
 public class InvLine {
-    int invNum;
     String item;
     double price;
     int count;
     private InvHeader invoiceModel;
 
-    public InvLine() {
-    }
-
-    public InvLine(int invNum, String item, double price, int count, InvHeader invoiceModel) {
-        this.invNum = invNum;
+    public InvLine(String item, double price, int count, InvHeader invoiceModel) {
         this.item = item;
         this.price = price;
         this.count = count;
         this.invoiceModel = invoiceModel;
     }
 
-    public int getInvNum() {
-        return invNum;
-    }
-
-    public void setInvNum(int invNum) {
-        this.invNum = invNum;
+    public InvHeader getInvoiceModel() {
+        return invoiceModel;
     }
 
     public String getItem() {
@@ -58,6 +49,8 @@ public class InvLine {
         this.count = count;
     }
     
-    
+    public double getTotal() {
+        return price * count;
+    }
     
 }
