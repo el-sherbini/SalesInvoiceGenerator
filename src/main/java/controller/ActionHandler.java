@@ -7,6 +7,7 @@ package controller;
 import model.InvHeader;
 import model.InvLine;
 import model.InvTblModel;
+import model.LinesTblModel;
 import view.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,15 +17,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import view.NewInvWindow;
 
 /**
  *
  * @author Mohamed Emad
  */
 public class ActionHandler implements ActionListener {
-    private MainWindow mainWindow;
+    private final MainWindow mainWindow;
+    private NewInvWindow newInvWindow;
     
     public ActionHandler(MainWindow mainWindow){
         this.mainWindow = mainWindow;
@@ -37,6 +41,9 @@ public class ActionHandler implements ActionListener {
             case "Save File" -> saveFile();
             case "Create New Invoice" -> createNewInvoice();
             case "Delete Invoice" -> deleteInvoice();
+            case "Add New Invoice" -> addNewInvoice();
+            case "Cancel New Invoice" -> cleanWindow(newInvWindow);
+            case "Delete Item" -> deleteItem();
         }
     }
 
@@ -46,50 +53,45 @@ public class ActionHandler implements ActionListener {
         try {
             
             if (fc.showOpenDialog(mainWindow) == JFileChooser.APPROVE_OPTION) {
-                Path headerPath = Paths.get(fc.getSelectedFile().getAbsolutePath());
+                Path headerPath = Paths.get(fc.getSelectedFile().getAbsolutePath()); // Getting the path of the header file
                 List<String> headerLines = Files.readAllLines(headerPath);
                 ArrayList<InvHeader> invHeaders = new ArrayList<>();
 
                 for (String line: headerLines) {
-                    String[] headers = line.split(",");
+                    String[] headerArr = line.split(","); // Getting every item individual in an array [Invoice Number, Invoice Date, Customer Name]
 
-                    int invNum = Integer.parseInt(headers[0]);
-                    String invDate = headers[1];
-                    String customerName = headers[2];
-
-                    InvHeader newHeader = new InvHeader(invNum, invDate, customerName);
+                    // Adding a new row of invoice header from the file
+                    InvHeader newHeader = new InvHeader(Integer.parseInt(headerArr[0]), headerArr[1], headerArr[2]);
                     invHeaders.add(newHeader);
                 }
 
                 if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    Path linePath = Paths.get(fc.getSelectedFile().getAbsolutePath());
+                    Path linePath = Paths.get(fc.getSelectedFile().getAbsolutePath()); // Getting the path of the line file
                     List<String> itemLines = Files.readAllLines(linePath);
                     InvHeader invs = null;
 
                     for (String line: itemLines) {
-                        String[] lineParts = line.split(",");
-                        
-                        int invNum = Integer.parseInt(lineParts[0]);
-                        String itemName = lineParts[1];
-                        double price = Double.parseDouble(lineParts[2]);
-                        int count = Integer.parseInt(lineParts[3]);
+                        String[] lineArr = line.split(","); // Getting every item individual in an array [Item Name, Item Price, Count, InvHeader Model]
 
                         for (InvHeader invoice : invHeaders) {
-                            if (invoice.getInvNum()== invNum) {
+                            if (invoice.getInvNum()== Integer.parseInt(lineArr[0])) {
                                 invs = invoice;
                                 break;
                             }
                         }
 
-                        InvLine newLine = new InvLine(itemName, price, count, invs);
+                        // Adding a new row of invoice line from the file
+                        InvLine newLine = new InvLine(lineArr[1], Double.parseDouble(lineArr[2]), Integer.parseInt(lineArr[3]), invs);
                         invs.getLines().add(newLine);
                     }
                 }
 
+                InvTblModel invTblModel = new InvTblModel(invHeaders);
+                
                 mainWindow.setInvs(invHeaders);
-                InvTblModel invTable = new InvTblModel(invHeaders);
-                mainWindow.setInvTblModel(invTable);
-                mainWindow.getInvsTbl().setModel(invTable);
+                mainWindow.setInvTblModel(invTblModel);
+                mainWindow.getInvsTbl().setModel(invTblModel);
+                
                 mainWindow.getInvTblModel().fireTableDataChanged();
             }
         } catch (IOException ex) {
@@ -102,10 +104,55 @@ public class ActionHandler implements ActionListener {
     }
 
     private void createNewInvoice() {
+        newInvWindow = new NewInvWindow(mainWindow);
+        newInvWindow.setLocationRelativeTo(mainWindow);
+        newInvWindow.setVisible(true);
     }
 
     private void deleteInvoice() {
+        int selectedRow = mainWindow.getInvsTbl().getSelectedRow();
+        if (selectedRow != -1) {
+            mainWindow.getInvs().remove(selectedRow);
+            mainWindow.getInvTblModel().fireTableDataChanged();
+        }
+    }
+    
+    private void addNewInvoice() {
+        ArrayList<InvHeader> invs = mainWindow.getInvs();
+        int invNum = 1;
         
+        if (invs != null) {
+            // Getting the number of the new invoice according to the last invoice number (if there are any invoices)
+            InvHeader lastInv = invs.get(invs.size() - 1);
+            invNum = lastInv.getInvNum() + 1;
+        }
+        
+        String invDate = newInvWindow.getInvDateTxtField().getText();
+        String customerName = newInvWindow.getCustomerNameTxtField().getText();
+        
+        // Adding new invoice to the table
+        mainWindow.getInvs().add(new InvHeader(invNum, invDate, customerName));
+        mainWindow.getInvTblModel().fireTableDataChanged();
+        
+        cleanWindow(newInvWindow);
+    }
+
+    private void deleteItem() {
+        int selectedRow = mainWindow.getInvItemsTbl().getSelectedRow();
+        
+        if (selectedRow != -1) {
+            LinesTblModel linesTblModel = (LinesTblModel) mainWindow.getInvItemsTbl().getModel();
+            linesTblModel.getLines().remove(selectedRow);
+            linesTblModel.fireTableDataChanged();
+            mainWindow.getInvTblModel().fireTableDataChanged();
+        }
+    } 
+    
+    private void cleanWindow(JDialog window) {
+        // Cleaning the window
+        window.setVisible(false);
+        window.dispose();
+        window = null;
     }
 
     
