@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.model;
+package model;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -11,11 +11,11 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Mohamed Emad
  */
-public class InvTable extends AbstractTableModel {
+public class InvTblModel extends AbstractTableModel {
     private ArrayList<InvHeader> invs;
-    private String[] cols = {"No.", "Date", "Customer", "Total"};
+    private String[] headers = {"No.", "Date", "Customer", "Total"};
 
-    public InvTable(ArrayList<InvHeader> invs) {
+    public InvTblModel(ArrayList<InvHeader> invs) {
         this.invs = invs;
     }
 
@@ -26,12 +26,12 @@ public class InvTable extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return cols.length;
+        return headers.length;
     }
 
     @Override
-    public String getColumnName(int col) {
-        return cols[col];
+    public String getColumnName(int column) {
+        return headers[column];
     }
 
     @Override
@@ -39,7 +39,7 @@ public class InvTable extends AbstractTableModel {
         InvHeader inv = invs.get(rowIndex);
         
         switch (columnIndex) {
-            case 0: return inv.getInvNumber();
+            case 0: return inv.getInvNum();
             case 1: return inv.getInvDate();
             case 2: return inv.getCustomerName();
             case 3: return inv.getTotal();

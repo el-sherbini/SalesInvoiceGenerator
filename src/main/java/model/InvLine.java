@@ -2,35 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.model;
+package model;
 
 /**
  *
  * @author Mohamed Emad
  */
 public class InvLine {
-    String item;
-    double price;
-    int count;
-    private InvHeader invoiceModel;
+    private String itemName;
+    private double price;
+    private int count;
+    private InvHeader invHeader;
 
-    public InvLine(String item, double price, int count, InvHeader invoiceModel) {
-        this.item = item;
+    public InvLine(String itemName, double price, int count, InvHeader InvHeader) {
+        this.itemName = itemName;
         this.price = price;
         this.count = count;
-        this.invoiceModel = invoiceModel;
+        this.invHeader = InvHeader;
     }
 
-    public InvHeader getInvoiceModel() {
-        return invoiceModel;
+    public InvHeader getInvHeader() {
+        return invHeader;
     }
 
-    public String getItem() {
-        return item;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public double getPrice() {

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.model;
+package model;
 
 import java.util.ArrayList;
 
@@ -11,31 +11,31 @@ import java.util.ArrayList;
  * @author Mohamed Emad
  */
 public class InvHeader {
-    int invNumber;
-    String invDate;
-    String customerName;
+    private int invNum;
+    private String invDate;
+    private String customerName;
     private ArrayList<InvLine> lines;
 
-    public InvHeader(int invNumber, String invDate, String customerName) {
-        this.invNumber = invNumber;
+    public InvHeader(int invNum, String invDate, String customerName) {
+        this.invNum = invNum;
         this.invDate = invDate;
         this.customerName = customerName;
     }
 
-    public int getInvNumber() {
-        return invNumber;
+    public int getInvNum() {
+        return invNum;
     }
 
-    public void setInvNumber(int invNumber) {
-        this.invNumber = invNumber;
+    public void setInvNum(int invNum) {
+        this.invNum = invNum;
     }
 
     public String getInvDate() {
         return invDate;
     }
 
-    public void setInvDate(String invoiceDate) {
-        this.invDate = invoiceDate;
+    public void setInvDate(String invDate) {
+        this.invDate = invDate;
     }
 
     public String getCustomerName() {

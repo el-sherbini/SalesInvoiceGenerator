@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.view;
+package view;
 
-import com.controller.ActionHandler;
-import com.model.InvHeader;
-import com.model.InvTable;
+import controller.ActionHandler;
+import controller.SelectionListener;
+import model.InvHeader;
+import model.InvTblModel;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -16,12 +17,12 @@ import javax.swing.JTextField;
  *
  * @author Mohamed Emad
  */
-public class MainView extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form Frame
      */
-    public MainView() {
+    public MainWindow() {
         initComponents();
     }
 
@@ -35,36 +36,36 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        invoicesTbl = new javax.swing.JTable();
-        invoicesTbl.getSelectionModel().addListSelectionListener(controller);
-        invoiceNumLblName = new javax.swing.JLabel();
-        InvoiceDateLbl = new javax.swing.JLabel();
-        CustomerNameLbl = new javax.swing.JLabel();
-        InvoiceTotalLblName = new javax.swing.JLabel();
-        invoiceNumLbl = new javax.swing.JLabel();
-        InvoiceTotalLbl = new javax.swing.JLabel();
+        invsTbl = new javax.swing.JTable();
+        invsTbl.getSelectionModel().addListSelectionListener(selectionListener);
+        invNumLblName = new javax.swing.JLabel();
+        invDateLbl = new javax.swing.JLabel();
+        customerNameLbl = new javax.swing.JLabel();
+        invTotalLblName = new javax.swing.JLabel();
+        invNumLbl = new javax.swing.JLabel();
+        invTotalLbl = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        InvoiceItemsTbl = new javax.swing.JTable();
+        invItemsTbl = new javax.swing.JTable();
         createNewInvoiceBtn = new javax.swing.JButton();
-        createNewInvoiceBtn.addActionListener(controller);
+        createNewInvoiceBtn.addActionListener(actionHandler);
         deleteInvoiceBtn = new javax.swing.JButton();
-        deleteInvoiceBtn.addActionListener(controller);
+        deleteInvoiceBtn.addActionListener(actionHandler);
         saveBtn = new javax.swing.JButton();
-        saveBtn.addActionListener(controller);
+        saveBtn.addActionListener(actionHandler);
         cancelBtn = new javax.swing.JButton();
-        cancelBtn.addActionListener(controller);
+        cancelBtn.addActionListener(actionHandler);
         customerNameTxtField = new javax.swing.JTextField();
         invoiceDateTxtField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         loadFileMenuBtn = new javax.swing.JMenuItem();
-        loadFileMenuBtn.addActionListener(controller);
+        loadFileMenuBtn.addActionListener(actionHandler);
         saveFileMenuBtn = new javax.swing.JMenuItem();
-        saveFileMenuBtn.addActionListener(controller);
+        saveFileMenuBtn.addActionListener(actionHandler);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        invoicesTbl.setModel(new javax.swing.table.DefaultTableModel(
+        invsTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -72,17 +73,17 @@ public class MainView extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(invoicesTbl);
+        jScrollPane1.setViewportView(invsTbl);
 
-        invoiceNumLblName.setText("Invoice Number");
+        invNumLblName.setText("Invoice Number");
 
-        InvoiceDateLbl.setText("Invoice Date");
+        invDateLbl.setText("Invoice Date");
 
-        CustomerNameLbl.setText("Customer Name");
+        customerNameLbl.setText("Customer Name");
 
-        InvoiceTotalLblName.setText("Invoice Total");
+        invTotalLblName.setText("Invoice Total");
 
-        InvoiceItemsTbl.setModel(new javax.swing.table.DefaultTableModel(
+        invItemsTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -90,28 +91,22 @@ public class MainView extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(InvoiceItemsTbl);
+        jScrollPane2.setViewportView(invItemsTbl);
 
         createNewInvoiceBtn.setText("Create New Invoice");
-        createNewInvoiceBtn.setActionCommand("createNewInvoice");
 
         deleteInvoiceBtn.setText("Delete Invoice");
-        deleteInvoiceBtn.setActionCommand("deleteInvoice");
 
         saveBtn.setText("Save");
-        saveBtn.setActionCommand("save");
 
         cancelBtn.setText("Cancel");
-        cancelBtn.setActionCommand("cancel");
 
         jMenu1.setText("File");
 
         loadFileMenuBtn.setText("Load File");
-        loadFileMenuBtn.setActionCommand("loadFile");
         jMenu1.add(loadFileMenuBtn);
 
         saveFileMenuBtn.setText("Save File");
-        saveFileMenuBtn.setActionCommand("saveFile");
         jMenu1.add(saveFileMenuBtn);
 
         jMenuBar1.add(jMenu1);
@@ -144,7 +139,7 @@ public class MainView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(CustomerNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(customerNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
                                 .addComponent(customerNameTxtField)))
                         .addContainerGap())
@@ -152,15 +147,15 @@ public class MainView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(InvoiceTotalLblName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(invoiceNumLblName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(invTotalLblName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(invNumLblName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(invoiceNumLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(InvoiceTotalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(invNumLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(invTotalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(InvoiceDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(invDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
                                 .addComponent(invoiceDateTxtField)))
                         .addGap(12, 12, 12))))
@@ -172,34 +167,31 @@ public class MainView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(invoiceNumLblName)
-                            .addComponent(invoiceNumLbl))
+                            .addComponent(invNumLblName)
+                            .addComponent(invNumLbl))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InvoiceDateLbl)
+                            .addComponent(invDateLbl)
                             .addComponent(invoiceDateTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CustomerNameLbl)
+                            .addComponent(customerNameLbl)
                             .addComponent(customerNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InvoiceTotalLblName)
-                            .addComponent(InvoiceTotalLbl))
+                            .addComponent(invTotalLblName)
+                            .addComponent(invTotalLbl))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(createNewInvoiceBtn)
-                            .addComponent(deleteInvoiceBtn)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(saveBtn)
-                            .addComponent(cancelBtn))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(createNewInvoiceBtn)
+                        .addComponent(deleteInvoiceBtn))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(saveBtn)
+                        .addComponent(cancelBtn)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -223,14 +215,18 @@ public class MainView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -239,25 +235,25 @@ public class MainView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainView().setVisible(true);
+                new MainWindow().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CustomerNameLbl;
-    private javax.swing.JLabel InvoiceDateLbl;
-    private javax.swing.JTable InvoiceItemsTbl;
-    private javax.swing.JLabel InvoiceTotalLbl;
-    private javax.swing.JLabel InvoiceTotalLblName;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JButton createNewInvoiceBtn;
+    private javax.swing.JLabel customerNameLbl;
     private javax.swing.JTextField customerNameTxtField;
     private javax.swing.JButton deleteInvoiceBtn;
+    private javax.swing.JLabel invDateLbl;
+    private javax.swing.JTable invItemsTbl;
+    private javax.swing.JLabel invNumLbl;
+    private javax.swing.JLabel invNumLblName;
+    private javax.swing.JLabel invTotalLbl;
+    private javax.swing.JLabel invTotalLblName;
     private javax.swing.JTextField invoiceDateTxtField;
-    private javax.swing.JLabel invoiceNumLbl;
-    private javax.swing.JLabel invoiceNumLblName;
-    private javax.swing.JTable invoicesTbl;
+    private javax.swing.JTable invsTbl;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -267,44 +263,49 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem saveFileMenuBtn;
     // End of variables declaration//GEN-END:variables
 
-    private ArrayList<InvHeader> invoices;
-    private ActionHandler controller = new ActionHandler(this);
-    private InvTable invTable;
+    private ArrayList<InvHeader> invs;
+    private ActionHandler actionHandler = new ActionHandler(this);
+    private SelectionListener selectionListener = new SelectionListener(this);
+    private InvTblModel invTblModel;
 
-    public InvTable getInvTable() {
-        return invTable;
+    public InvTblModel getInvTblModel() {
+        return invTblModel;
     }
 
-    public void setInvTable(InvTable invTable) {
-        this.invTable = invTable;
+    public void setInvTblModel(InvTblModel invTblModel) {
+        this.invTblModel = invTblModel;
     }
 
-    public ArrayList<InvHeader> getInvoices() {
-        return invoices;
+    public ArrayList<InvHeader> getInvs() {
+        return invs;
     }
 
-    public void setInvoices(ArrayList<InvHeader> invoices) {
-        this.invoices = invoices;
+    public void setInvs(ArrayList<InvHeader> invs) {
+        this.invs = invs;
     }
 
-    public JTable getInvoiceItemsTbl() {
-        return InvoiceItemsTbl;
+    public JTable getInvItemsTbl() {
+        return invItemsTbl;
     }
 
-    public JLabel getInvoiceTotalLbl() {
-        return InvoiceTotalLbl;
+    public JLabel getInvTotalLbl() {
+        return invTotalLbl;
     }
 
-    public JLabel getInvoiceNumLbl() {
-        return invoiceNumLbl;
+    public JLabel getInvNumLbl() {
+        return invNumLbl;
     }
 
-    public JTable getInvoicesTbl() {
-        return invoicesTbl;
+    public JTable getInvsTbl() {
+        return invsTbl;
     }
 
-    public ActionHandler getController() {
-        return controller;
+    public ActionHandler getActionHandler() {
+        return actionHandler;
+    }
+
+    public SelectionListener getSelectionListener() {
+        return selectionListener;
     }
 
     public JTextField getCustomerNameTxtField() {

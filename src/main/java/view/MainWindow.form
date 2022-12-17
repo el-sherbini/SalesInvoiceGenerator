@@ -12,19 +12,17 @@
             <MenuItem class="javax.swing.JMenuItem" name="loadFileMenuBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Load File"/>
-                <Property name="actionCommand" type="java.lang.String" value="loadFile"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="loadFileMenuBtn.addActionListener(controller);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="loadFileMenuBtn.addActionListener(actionHandler);"/>
               </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="saveFileMenuBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save File"/>
-                <Property name="actionCommand" type="java.lang.String" value="saveFile"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="saveFileMenuBtn.addActionListener(controller);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="saveFileMenuBtn.addActionListener(actionHandler);"/>
               </AuxValues>
             </MenuItem>
           </SubComponents>
@@ -81,7 +79,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane2" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="CustomerNameLbl" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="customerNameLbl" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="customerNameTxtField" max="32767" attributes="0"/>
                           </Group>
@@ -92,18 +90,18 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="InvoiceTotalLblName" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
-                                  <Component id="invoiceNumLblName" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="invTotalLblName" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="invNumLblName" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="invoiceNumLbl" min="-2" pref="90" max="-2" attributes="0"/>
-                                  <Component id="InvoiceTotalLbl" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="invNumLbl" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="invTotalLbl" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="InvoiceDateLbl" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="invDateLbl" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="invoiceDateTxtField" max="32767" attributes="0"/>
                           </Group>
@@ -121,43 +119,38 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="invoiceNumLblName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="invoiceNumLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="invNumLblName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="invNumLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="InvoiceDateLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="invDateLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="invoiceDateTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="CustomerNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="customerNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="customerNameTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="InvoiceTotalLblName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="InvoiceTotalLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="invTotalLblName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="invTotalLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="174" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="290" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="createNewInvoiceBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="deleteInvoiceBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="createNewInvoiceBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="deleteInvoiceBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="saveBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="saveBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="19" max="32767" attributes="0"/>
@@ -173,41 +166,41 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="invoicesTbl">
+        <Component class="javax.swing.JTable" name="invsTbl">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="0" rowCount="0"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="invoicesTbl.getSelectionModel().addListSelectionListener(controller);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="invsTbl.getSelectionModel().addListSelectionListener(selectionListener);"/>
           </AuxValues>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="invoiceNumLblName">
+    <Component class="javax.swing.JLabel" name="invNumLblName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Invoice Number"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="InvoiceDateLbl">
+    <Component class="javax.swing.JLabel" name="invDateLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Invoice Date"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="CustomerNameLbl">
+    <Component class="javax.swing.JLabel" name="customerNameLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Customer Name"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="InvoiceTotalLblName">
+    <Component class="javax.swing.JLabel" name="invTotalLblName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Invoice Total"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="invoiceNumLbl">
+    <Component class="javax.swing.JLabel" name="invNumLbl">
     </Component>
-    <Component class="javax.swing.JLabel" name="InvoiceTotalLbl">
+    <Component class="javax.swing.JLabel" name="invTotalLbl">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
@@ -216,7 +209,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="InvoiceItemsTbl">
+        <Component class="javax.swing.JTable" name="invItemsTbl">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="0" rowCount="0"/>
@@ -228,37 +221,33 @@
     <Component class="javax.swing.JButton" name="createNewInvoiceBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Create New Invoice"/>
-        <Property name="actionCommand" type="java.lang.String" value="createNewInvoice"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="createNewInvoiceBtn.addActionListener(controller);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="createNewInvoiceBtn.addActionListener(actionHandler);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="deleteInvoiceBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete Invoice"/>
-        <Property name="actionCommand" type="java.lang.String" value="deleteInvoice"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="deleteInvoiceBtn.addActionListener(controller);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="deleteInvoiceBtn.addActionListener(actionHandler);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="saveBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
-        <Property name="actionCommand" type="java.lang.String" value="save"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="saveBtn.addActionListener(controller);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="saveBtn.addActionListener(actionHandler);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="cancelBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancel"/>
-        <Property name="actionCommand" type="java.lang.String" value="cancel"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="cancelBtn.addActionListener(controller);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="cancelBtn.addActionListener(actionHandler);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="customerNameTxtField">

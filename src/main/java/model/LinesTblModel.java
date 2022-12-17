@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.model;
+package model;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -11,11 +11,11 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Mohamed Emad
  */
-public class LinesTable extends AbstractTableModel{
+public class LinesTblModel extends AbstractTableModel{
     private ArrayList<InvLine> lines;
-    private String[] cols = {"No.", "Item", "Price", "Count", "Total"};
+    private String[] headers = {"No.", "Item Name", "Price", "Count", "Total"};
     
-    public LinesTable(ArrayList<InvLine> lines) {
+    public LinesTblModel(ArrayList<InvLine> lines) {
         this.lines = lines;
     }
 
@@ -26,12 +26,12 @@ public class LinesTable extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return cols.length;
+        return headers.length;
     }
 
     @Override
-    public String getColumnName(int col) {
-        return cols[col];
+    public String getColumnName(int column) {
+        return headers[column];
     }
     
     @Override
@@ -39,13 +39,17 @@ public class LinesTable extends AbstractTableModel{
         InvLine line = lines.get(rowIndex);
         
         switch(columnIndex) {
-            case 0: return line.getInvoiceModel().getInvNumber();
-            case 1: return line.getItem();
+            case 0: return line.getInvHeader().getInvNum();
+            case 1: return line.getItemName();
             case 2: return line.getPrice();
             case 3: return line.getCount();
             case 4: return line.getTotal();
             default : return "";
         }
+    }
+
+    public ArrayList<InvLine> getLines() {
+        return lines;
     }
     
 }
