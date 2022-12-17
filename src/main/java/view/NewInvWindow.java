@@ -22,12 +22,12 @@ public class NewInvWindow extends JDialog{
     private final JButton addBtn = new JButton("Add");
     private final JButton cancelBtn = new JButton("Cancel");
 
-    public NewInvWindow(MainWindow MainWindow) {
+    public NewInvWindow(MainWindow mainWindow) {
         addBtn.setActionCommand("Add New Invoice");
         cancelBtn.setActionCommand("Cancel New Invoice");
         
-        addBtn.addActionListener(MainWindow.getActionHandler());
-        cancelBtn.addActionListener(MainWindow.getActionHandler());
+        addBtn.addActionListener(mainWindow.getActionHandler());
+        cancelBtn.addActionListener(mainWindow.getActionHandler());
         
         setLayout(new GridLayout(3, 2));
         setTitle("Create New Invoice:");

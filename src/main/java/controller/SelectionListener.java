@@ -30,7 +30,7 @@ public class SelectionListener implements ListSelectionListener {
             LinesTblModel linesTblModel = new LinesTblModel(selectedInv.getLines());
             
             mainWindow.getInvNumLbl().setText(Integer.toString(selectedInv.getInvNum()));
-            mainWindow.getInvoiceDateTxtField().setText(selectedInv.getInvDate());
+            mainWindow.getInvoiceDateTxtField().setText(selectedInv.getInvDate().toString());
             mainWindow.getCustomerNameTxtField().setText(selectedInv.getCustomerName());
             mainWindow.getInvTotalLbl().setText(""+selectedInv.getTotal());
 

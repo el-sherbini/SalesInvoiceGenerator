@@ -5,6 +5,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -12,11 +13,11 @@ import java.util.ArrayList;
  */
 public class InvHeader {
     private int invNum;
-    private String invDate;
+    private Date invDate;
     private String customerName;
     private ArrayList<InvLine> lines;
 
-    public InvHeader(int invNum, String invDate, String customerName) {
+    public InvHeader(int invNum, Date invDate, String customerName) {
         this.invNum = invNum;
         this.invDate = invDate;
         this.customerName = customerName;
@@ -30,11 +31,11 @@ public class InvHeader {
         this.invNum = invNum;
     }
 
-    public String getInvDate() {
+    public Date getInvDate() {
         return invDate;
     }
 
-    public void setInvDate(String invDate) {
+    public void setInvDate(Date invDate) {
         this.invDate = invDate;
     }
 
@@ -61,6 +62,10 @@ public class InvHeader {
         }
         
         return t;
+    }
+    
+    public String getCSVFormat() {
+        return invNum + "," + invDate + "," + customerName;
     }
     
 }

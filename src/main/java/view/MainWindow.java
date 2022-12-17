@@ -6,6 +6,7 @@ package view;
 
 import controller.ActionHandler;
 import controller.SelectionListener;
+import java.text.SimpleDateFormat;
 import model.InvHeader;
 import model.InvTblModel;
 import java.util.ArrayList;
@@ -100,6 +101,10 @@ public class MainWindow extends javax.swing.JFrame {
         saveBtn.setText("Save");
 
         cancelBtn.setText("Cancel");
+
+        customerNameTxtField.setEnabled(false);
+
+        invoiceDateTxtField.setEnabled(false);
 
         jMenu1.setText("File");
 
@@ -264,8 +269,14 @@ public class MainWindow extends javax.swing.JFrame {
     private ActionHandler actionHandler = new ActionHandler(this);
     private SelectionListener selectionListener = new SelectionListener(this);
     private InvTblModel invTblModel;
+    
+    public SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public InvTblModel getInvTblModel() {
+        if (invTblModel == null) {
+            invTblModel = new InvTblModel(getInvs());
+            getInvsTbl().setModel(invTblModel);
+        }
         return invTblModel;
     }
 
@@ -274,6 +285,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public ArrayList<InvHeader> getInvs() {
+        if (invs == null) invs = new ArrayList<>();
         return invs;
     }
 

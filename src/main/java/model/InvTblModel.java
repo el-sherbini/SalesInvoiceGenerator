@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class InvTblModel extends AbstractTableModel {
     private ArrayList<InvHeader> invs;
-    private String[] headers = {"No.", "Date", "Customer", "Total"};
+    private String[] headers = {"No.", "Date", "Customer Name", "Total"};
 
     public InvTblModel(ArrayList<InvHeader> invs) {
         this.invs = invs;
@@ -38,13 +38,13 @@ public class InvTblModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         InvHeader inv = invs.get(rowIndex);
         
-        switch (columnIndex) {
-            case 0: return inv.getInvNum();
-            case 1: return inv.getInvDate();
-            case 2: return inv.getCustomerName();
-            case 3: return inv.getTotal();
-            default: return "";
-        }
+        return switch (columnIndex) {
+            case 0 -> inv.getInvNum();
+            case 1 -> inv.getInvDate();
+            case 2 -> inv.getCustomerName();
+            case 3 -> inv.getTotal();
+            default -> "";
+        };
     }
     
      

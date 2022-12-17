@@ -53,4 +53,7 @@ public class InvLine {
         return price * count;
     }
     
+    public String getCSVFormat() {
+        return invHeader.getInvNum() + "," + itemName + "," + price + "," + count;
+    }
 }
