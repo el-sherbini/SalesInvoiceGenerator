@@ -45,7 +45,7 @@ public class FileOperations {
                 }
             }
             
-            InvTblModel invTblModel = new InvTblModel(invHeaders);
+            InvTblModel invTblModel = new InvTblModel(invHeaders, mainWindow);
 
             mainWindow.setInvs(invHeaders);
             mainWindow.setInvTblModel(invTblModel);

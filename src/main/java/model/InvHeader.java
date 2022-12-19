@@ -55,13 +55,13 @@ public class InvHeader {
     }
     
     public double getTotal() {
-        double t = 0.0;
+        double total = 0.0;
         
         for (InvLine l: getLines()) {
-            t += l.getTotal();
+            total += l.getTotal();
         }
         
-        return t;
+        return total;
     }
     
     public String getCSVFormat() {

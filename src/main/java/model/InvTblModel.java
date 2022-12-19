@@ -6,17 +6,21 @@ package model;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
+import view.MainWindow;
 
 /**
  *
  * @author Mohamed Emad
  */
 public class InvTblModel extends AbstractTableModel {
+    private MainWindow mainWindow;
+    
     private ArrayList<InvHeader> invs;
     private String[] headers = {"No.", "Date", "Customer Name", "Total"};
 
-    public InvTblModel(ArrayList<InvHeader> invs) {
+    public InvTblModel(ArrayList<InvHeader> invs, MainWindow mainWindow) {
         this.invs = invs;
+        this.mainWindow = mainWindow;
     }
 
     @Override
@@ -40,7 +44,7 @@ public class InvTblModel extends AbstractTableModel {
         
         return switch (columnIndex) {
             case 0 -> inv.getInvNum();
-            case 1 -> inv.getInvDate();
+            case 1 -> mainWindow.dateFormat.format(inv.getInvDate());
             case 2 -> inv.getCustomerName();
             case 3 -> inv.getTotal();
             default -> "";

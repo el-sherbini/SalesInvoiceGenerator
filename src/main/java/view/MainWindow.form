@@ -32,6 +32,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Sales Invoice Generator"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -99,10 +100,10 @@
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
               <Component id="deleteInvoiceBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="saveBtn" min="-2" pref="73" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-              <Component id="cancelBtn" min="-2" pref="73" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+              <Component id="createNewItemBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+              <Component id="deleteItemBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -140,8 +141,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="deleteInvoiceBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="saveBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="createNewItemBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="deleteItemBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="createNewInvoiceBtn" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -226,20 +227,22 @@
         <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="deleteInvoiceBtn.addActionListener(actionHandler);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="saveBtn">
+    <Component class="javax.swing.JButton" name="createNewItemBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Save"/>
+        <Property name="text" type="java.lang.String" value="Create New Item"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="saveBtn.addActionListener(actionHandler);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="createNewItemBtn.addActionListener(actionHandler);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="cancelBtn">
+    <Component class="javax.swing.JButton" name="deleteItemBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
+        <Property name="text" type="java.lang.String" value="Delete Item"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="cancelBtn.addActionListener(actionHandler);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="deleteItemBtn.addActionListener(actionHandler);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="customerNameTxtField">

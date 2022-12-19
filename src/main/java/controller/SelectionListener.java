@@ -23,17 +23,22 @@ public class SelectionListener implements ListSelectionListener {
     
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        int selectedRow = mainWindow.getInvsTbl().getSelectedRow();
+        int selectedInvRow = mainWindow.getInvsTbl().getSelectedRow();
         
-        if (selectedRow != -1){
-            InvHeader selectedInv = mainWindow.getInvs().get(selectedRow);
-            LinesTblModel linesTblModel = new LinesTblModel(selectedInv.getLines());
+        if (selectedInvRow != -1){
+            InvHeader selectedInv = mainWindow.getInvs().get(selectedInvRow);
             
+            // Getting data of invoice to show in fields
             mainWindow.getInvNumLbl().setText(Integer.toString(selectedInv.getInvNum()));
-            mainWindow.getInvoiceDateTxtField().setText(selectedInv.getInvDate().toString());
+            mainWindow.getInvoiceDateTxtField().setText(mainWindow.dateFormat.format(selectedInv.getInvDate()));
             mainWindow.getCustomerNameTxtField().setText(selectedInv.getCustomerName());
             mainWindow.getInvTotalLbl().setText(""+selectedInv.getTotal());
+            
+            mainWindow.getCreateNewItemBtn().setEnabled(true);
+            mainWindow.getDeleteItemBtn().setEnabled(true);
 
+            // Getting the lines to fill items table
+            LinesTblModel linesTblModel = new LinesTblModel(selectedInv.getLines());
             mainWindow.getInvItemsTbl().setModel(linesTblModel);
         }
     }

@@ -10,12 +10,12 @@ import view.MainWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import model.FileOperations;
+import model.InvLine;
 import view.NewInvWindow;
 import view.NewItemWindow;
 
@@ -74,7 +74,6 @@ public class ActionHandler implements ActionListener {
             invNum = lastInv.getInvNum() + 1;
         }
         
-        
         try {
             String invDate = newInvWindow.getInvDateTxtField().getText();
             Date date = mainWindow.dateFormat.parse(invDate);
@@ -87,7 +86,7 @@ public class ActionHandler implements ActionListener {
             
             cleanDialog(newInvWindow);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(mainWindow, "Date isn't correct.", "Invalid date format", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mainWindow, "Date isn't correct, please enter date in this format (dd-mm-yyyy)", "Invalid date format", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -109,9 +108,27 @@ public class ActionHandler implements ActionListener {
     }
     
     private void addNewItem() {
-        newItemWindow = new NewItemWindow(mainWindow);
-        newItemWindow.setLocationRelativeTo(mainWindow);
-        newItemWindow.setVisible(true);
+        String itemName = newItemWindow.getItmNameTxtField().getText();
+        double price = Double.parseDouble(newItemWindow.getPriceTxtField().getText());
+        int count = Integer.parseInt(newItemWindow.getCountTxtField().getText());
+        
+        try {
+            int selectedInv = mainWindow.getInvsTbl().getSelectedRow();
+        
+            if (selectedInv != -1) {
+                InvHeader inv = mainWindow.getInvs().get(selectedInv);
+                InvLine line = new InvLine(itemName, price, count, inv);
+                inv.getLines().add(line);
+
+                LinesTblModel linesTableModel = (LinesTblModel) mainWindow.getInvItemsTbl().getModel();
+                linesTableModel.fireTableDataChanged();
+                mainWindow.getInvTblModel().fireTableDataChanged();
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(mainWindow, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        cleanDialog(newInvWindow);
     }
     
     private void cleanDialog(JDialog dialog) {

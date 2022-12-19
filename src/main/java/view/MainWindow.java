@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import model.InvHeader;
 import model.InvTblModel;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -51,10 +52,10 @@ public class MainWindow extends javax.swing.JFrame {
         createNewInvoiceBtn.addActionListener(actionHandler);
         deleteInvoiceBtn = new javax.swing.JButton();
         deleteInvoiceBtn.addActionListener(actionHandler);
-        saveBtn = new javax.swing.JButton();
-        saveBtn.addActionListener(actionHandler);
-        cancelBtn = new javax.swing.JButton();
-        cancelBtn.addActionListener(actionHandler);
+        createNewItemBtn = new javax.swing.JButton();
+        createNewItemBtn.addActionListener(actionHandler);
+        deleteItemBtn = new javax.swing.JButton();
+        deleteItemBtn.addActionListener(actionHandler);
         customerNameTxtField = new javax.swing.JTextField();
         invoiceDateTxtField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -65,6 +66,7 @@ public class MainWindow extends javax.swing.JFrame {
         saveFileMenuBtn.addActionListener(actionHandler);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sales Invoice Generator");
 
         invsTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,9 +100,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         deleteInvoiceBtn.setText("Delete Invoice");
 
-        saveBtn.setText("Save");
+        createNewItemBtn.setText("Create New Item");
+        createNewItemBtn.setEnabled(false);
 
-        cancelBtn.setText("Cancel");
+        deleteItemBtn.setText("Delete Item");
+        deleteItemBtn.setEnabled(false);
 
         customerNameTxtField.setEnabled(false);
 
@@ -157,10 +161,10 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(63, 63, 63)
                 .addComponent(deleteInvoiceBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
-                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82))
+                .addComponent(createNewItemBtn)
+                .addGap(60, 60, 60)
+                .addComponent(deleteItemBtn)
+                .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,8 +194,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(deleteInvoiceBtn)
-                        .addComponent(saveBtn)
-                        .addComponent(cancelBtn))
+                        .addComponent(createNewItemBtn)
+                        .addComponent(deleteItemBtn))
                     .addComponent(createNewInvoiceBtn))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
@@ -243,11 +247,12 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelBtn;
     private javax.swing.JButton createNewInvoiceBtn;
+    private javax.swing.JButton createNewItemBtn;
     private javax.swing.JLabel customerNameLbl;
     private javax.swing.JTextField customerNameTxtField;
     private javax.swing.JButton deleteInvoiceBtn;
+    private javax.swing.JButton deleteItemBtn;
     private javax.swing.JLabel invDateLbl;
     private javax.swing.JTable invItemsTbl;
     private javax.swing.JLabel invNumLbl;
@@ -261,7 +266,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuItem loadFileMenuBtn;
-    private javax.swing.JButton saveBtn;
     private javax.swing.JMenuItem saveFileMenuBtn;
     // End of variables declaration//GEN-END:variables
 
@@ -274,7 +278,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public InvTblModel getInvTblModel() {
         if (invTblModel == null) {
-            invTblModel = new InvTblModel(getInvs());
+            invTblModel = new InvTblModel(getInvs(), this);
             getInvsTbl().setModel(invTblModel);
         }
         return invTblModel;
@@ -315,6 +319,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     public JTable getInvsTbl() {
         return invsTbl;
+    }
+
+    public JButton getCreateNewItemBtn() {
+        return createNewItemBtn;
+    }
+
+    public JButton getDeleteItemBtn() {
+        return deleteItemBtn;
     }
 
     public JTextField getCustomerNameTxtField() {

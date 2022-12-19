@@ -25,8 +25,8 @@ public class NewItemWindow extends JDialog{
     private final JButton cancelBtn  = new JButton("Cancel");
     
     public NewItemWindow(MainWindow mainWindow) {
-        addBtn.setActionCommand("Add Item");
-        cancelBtn.setActionCommand("Cancel Add Item");
+        addBtn.setActionCommand("Add New Item");
+        cancelBtn.setActionCommand("Cancel New Item");
         
         addBtn.addActionListener(mainWindow.getActionHandler());
         cancelBtn.addActionListener(mainWindow.getActionHandler());
