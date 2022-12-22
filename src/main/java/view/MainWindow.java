@@ -14,18 +14,20 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import model.FileOperations;
 
 /**
  *
  * @author Mohamed Emad
  */
 public class MainWindow extends javax.swing.JFrame {
-
+    FileOperations fo = new FileOperations(this);
     /**
      * Creates new form Frame
      */
     public MainWindow() {
         initComponents();
+        fo.readFile();
     }
 
     /**

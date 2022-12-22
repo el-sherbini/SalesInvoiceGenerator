@@ -29,18 +29,24 @@ public class FileOperations {
     }
     
     public void readFile() {
+        String dir = System.getProperty("user.dir"); // Get the current directory
+        
         try {
             JFileChooser fc = new JFileChooser();
             
             ArrayList<InvHeader> invHeaders = new ArrayList<>();
             
-            if (fc.showOpenDialog(mainWindow) == JFileChooser.APPROVE_OPTION) {
+            if (mainWindow.getInvs().isEmpty()) {
+                Path defaultHeaderPath = Paths.get(dir + "/InvoiceHeader.csv");
+                Path defaultLinePath = Paths.get(dir + "/InvoiceLine.csv");
+                invHeaders = getFileInvHeaders(defaultHeaderPath);
+                setFileInvLines(defaultLinePath, invHeaders);
+            } else if (fc.showOpenDialog(mainWindow) == JFileChooser.APPROVE_OPTION) {
                 Path headerPath = Paths.get(fc.getSelectedFile().getAbsolutePath()); // Getting the path of the header file
                 invHeaders = getFileInvHeaders(headerPath);
                 
                 if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     Path linePath = Paths.get(fc.getSelectedFile().getAbsolutePath()); // Getting the path of the line file
-                    
                     setFileInvLines(linePath, invHeaders);
                 }
             }
@@ -78,7 +84,7 @@ public class FileOperations {
 
                 File headerFile = fc.getSelectedFile();
 
-                try (FileWriter headerFileWriter = new FileWriter(headerFile + ".csv")) {
+                try (FileWriter headerFileWriter = new FileWriter(headerFile)) {
                     headerFileWriter.write(invHeaders);
                     headerFileWriter.flush();
                     headerFileWriter.close();
@@ -108,7 +114,7 @@ public class FileOperations {
             String[] headerArr = line.split(","); // Getting every item individual in an array [Invoice Number, Invoice Date, Customer Name]
 
             // Adding a new row of invoice header from the file
-            InvHeader newHeader = new InvHeader(Integer.parseInt(headerArr[0]), mainWindow.dateFormat.parse(headerArr[1]), headerArr[2]);
+            InvHeader newHeader = new InvHeader(Integer.parseInt(headerArr[0]), mainWindow.dateFormat.parse(headerArr[1]), headerArr[2], mainWindow);
             invHeaders.add(newHeader);
         }
         

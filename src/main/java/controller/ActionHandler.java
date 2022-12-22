@@ -81,7 +81,7 @@ public class ActionHandler implements ActionListener {
             String customerName = newInvWindow.getCustomerNameTxtField().getText();
         
             // Adding new invoice to the table
-            mainWindow.getInvs().add(new InvHeader(invNum, date, customerName));
+            mainWindow.getInvs().add(new InvHeader(invNum, date, customerName, mainWindow));
             mainWindow.getInvTblModel().fireTableDataChanged();
             
             cleanDialog(newInvWindow);
@@ -128,7 +128,7 @@ public class ActionHandler implements ActionListener {
             JOptionPane.showMessageDialog(mainWindow, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-        cleanDialog(newInvWindow);
+        cleanDialog(newItemWindow);
     }
     
     private void cleanDialog(JDialog dialog) {
